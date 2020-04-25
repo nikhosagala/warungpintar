@@ -30,6 +30,10 @@ func newMessage(writer http.ResponseWriter, request *http.Request) {
 		data, _ := json.Marshal(message)
 		// append new message to our data container
 		messages = append(messages, message)
+		// we publish the message to mqtt server
+		topic := "go-mqtt/sample"
+		client := mqttClient("pub")
+		client.Publish(topic, 0, false, data)
 		writer.Header().Set("Content-Type", "application/json")
 		writer.WriteHeader(http.StatusCreated)
 		_, _ = writer.Write(data)

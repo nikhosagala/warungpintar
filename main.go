@@ -29,5 +29,7 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
+	// subscribe to mqtt topic and output to stdout
+	go listen("go-mqtt/sample")
 	log.Fatal(srv.ListenAndServe())
 }
